@@ -1,0 +1,571 @@
+@font-face {
+    font-family: opensans;
+    src: url(OpenSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: montserrat;
+    src: url(Montserrat-Regular.ttf);
+}
+
+body { 
+background: url(achtergrond2.jpg) no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+  }
+
+
+.container {
+width: 80%;
+background-color: #ffffff;
+box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+min-height: 100vh;
+padding: 0;
+overflow: hidden;
+}
+
+
+/* Choose page */
+
+.containerhome {
+    width: 50%;
+    background: rgba(255, 252, 252, 0.4);
+    min-height: 100vh;
+    padding: 0;
+    overflow: hidden;
+    float: right;
+    display: flex;
+    align-items: center;
+    }
+
+.card-center {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    background-color: white;
+    width: 60%;
+    padding: 0;
+    overflow: hidden;
+    float: none;
+    margin: 0 auto;
+    height: auto;
+   
+   
+}
+
+.middle-logo img {
+    position: fixed; /* or absolute */
+    top: 50%;
+}
+
+.middle-logo {
+ 
+        display: flex;
+        justify-content: center;
+}
+
+#choose h3 {
+font-family: montserrat;
+text-align: center;
+padding: 20px;
+}
+
+#choose .title {
+background-color: #F49100;
+width: 100%;
+left: 0;
+padding: 10px;
+display: block;
+margin: 0;
+}
+
+#choose .title img {
+width:60%;
+height:auto;
+margin-left: auto;
+margin-right: auto;
+display: block;
+}
+
+#choose p {
+padding:30px;
+text-align: center;
+}
+
+#choose .row{
+justify-content: center;
+}
+
+#choose .card{
+border-radius: 0.1px;
+transition: box-shadow .3s;
+text-align: center;
+background-color: #F7F7F7;
+border-width:0.5px;
+border-style:solid;
+border-color:#f2f2f2;
+
+}
+
+#choose .col-sm-6{
+    padding: 0;
+}
+
+#choose a{
+text-decoration: none;
+color: black;
+}
+
+#choose .card:hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+#choose .card-title{
+    font-family: montserrat;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#choose p {
+    margin-top: 25px;
+}
+
+/* Intake */
+
+#progress {
+   width: 20%;
+   float:left;
+   min-height: 100vh;
+   box-shadow: 8px 0 20px -5px #C7C7C7;
+   display: table;
+   position: fixed;
+}
+
+#progress li {
+    background-color: white;
+    color: black;
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    font-family: montserrat;
+    width: 100%;
+    float: left;
+    vertical-align: middle;
+}
+
+#progress li.active {
+    background: #eee;
+    border-right: solid 10px #F49100;
+    font-weight: bold;
+}
+
+
+#progress ul{
+    margin: 0; 
+    padding: 0;
+    vertical-align: middle;
+    display: inline;
+    display: table-cell;
+}
+
+#form{
+    width:80%;
+    float: right;
+}
+
+#form h3 {
+font-family: montserrat;
+text-align: center;
+padding: 20px;
+}
+
+#form h5 {
+    font-family: opensans;
+    margin-bottom: 50px;
+    }
+
+#form h6 {
+    text-align: left;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#form form{
+    width: 60%;
+    margin:auto;
+    justify-content: center;
+    
+}
+
+#form input{
+background-color: #F5F5F5;
+border-radius: 0%;
+}
+
+#form .btn-primary{
+    background-color: #F49100;
+    border-color: #F49100;
+    padding-right:20px;
+    padding-left:20px;
+    font-size: 0.8em;
+    margin-right: 20px;
+    border-radius: 0%;
+}
+
+#form .btn-secondary{
+    background-color: #D1D1D1;
+    border-color: #D1D1D1;
+    padding-right:20px;
+    padding-left:20px;
+    font-size: 0.8em;
+    border-radius: 0%;
+}
+
+/* datepicker */
+
+#progress svg{
+    text-align: right;
+}
+
+#form .form-group i {
+    color: #F49100;
+}
+
+#form button {
+margin-top: 50px;
+}
+
+#form button a{
+color: white;
+}
+
+/* login */
+
+    #login .login {
+        width: 80%;
+        margin: auto;
+    }
+
+    #login .login input {
+        background-color: #F5F5F5;
+    }
+
+    #login h3 {
+    font-family: montserrat;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    }
+    
+    #login .title {
+    background-color: #F49100;
+    width: 100%;
+    left: 0;
+    padding: 10px;
+    display: block;
+    margin: 0;
+    }
+    
+    #login .title img {
+    width:60%;
+    height:auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    }
+    
+    #login p {
+    padding:30px;
+    text-align: center;
+    }
+    
+    #login button {
+    background-color: #F49100;
+    border-color: #F49100;
+    padding-right:60px;
+    padding-left:60px;
+    font-size: 1.0em;
+    margin-right: 20px;
+    border-radius: 0%;
+    margin:auto;
+    display:block;
+    }
+
+    #login p a{
+    color: black;
+    }
+    
+    /* overview */
+
+
+    #nav {
+        min-height: 100vh;
+        box-shadow: 8px 0 20px -5px #C7C7C7;
+        position: fixed;
+        width: 230px;
+        display: flex;
+
+     }
+
+
+     .row .col-sm-2 {
+         padding: 0
+     }
+     
+     .row .col-sm-10 {
+         padding: 0;
+     }
+     #nav li {
+         background-color: white;
+         color: black;
+         display: inline-block;
+         padding: 20px;
+         text-decoration: none;
+         font-family: montserrat;
+         width: 100%;
+         float: left;
+         vertical-align: middle;
+     }
+     
+     #nav li svg {
+         margin-left: 10px;
+         margin-right: 5px;
+
+     }
+
+     #nav li.active {
+         background: #eee;
+         border-right: solid 10px #F49100;
+         font-weight: bold;
+     }
+     
+     #nav li.bottom {
+        display: inline-block;
+        vertical-align: bottom; 
+        align-items: flex-end
+     }
+
+     #nav ul{
+         margin: 0; 
+         padding: 0;
+         
+     }
+
+     #view h3{
+        font-family: montserrat;
+        padding: 15px;
+    
+    }
+    
+    #view .header {
+        -webkit-box-shadow: 0 9px 20px -5px lightgrey;
+  -moz-box-shadow:0 9px 20px -5px lightgrey;
+  box-shadow: 0 9px 20px -5px lightgrey ;
+  height: 65px;
+  z-index: 1;
+    }
+
+#view .appointment {
+        width: 95%;
+        margin: auto;
+        height: 100px;
+        margin-top: 20px;
+        box-shadow: 0 1px #FFFFFF inset, 0 1px 3px rgba(34, 25, 25, 0.4);
+        text-decoration: none;
+}
+
+#view a {
+    text-decoration: none;
+    color: black;
+}
+    
+#view {
+      float: right;
+      width: 80%;
+  }
+
+#view .appointment .fa-comments {
+    margin: 23px;
+    float: left;
+  }
+
+#view .appointment .fa-camera-alt {
+    margin: 23px;
+    float: left;
+}
+
+#view .appointment .fa-calendar-alt {
+    margin: 23px;
+    float: left;
+  }
+
+  #view .appointment h5 {
+    padding: 35px;
+    padding-right: 0;
+    float: left;
+    padding-left: 0;
+  }
+
+  
+  
+#view .appointment .fa-trash-alt {
+    float: right;
+    
+    margin-top: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#view .appointment .fa-edit {
+    float: right;
+    margin-top: 35px;
+  }
+
+#view .appointment p {
+    float: left;
+    margin: 35px;
+
+}
+
+#view .header .fa-angle-left {
+    margin-top:15px;
+    float: left;
+    margin-left: 30px;
+    margin-right: 20px;
+}
+
+.appointmentheader{
+    margin:50px;
+}
+
+.appointmentheader .fa-camera-alt {
+    float:left;
+    margin-right: 20px;
+}
+
+.appointmentheader .fa-comments {
+    float:left;
+    margin-right: 20px;
+
+}
+
+
+.appointmentheader h2  {
+    font-family: montserrat;
+    margin-left: 20px;
+}
+
+.appointmentdetail {
+    float:left;
+    margin:50px;
+    margin-top:20px;
+}
+
+.appointmentdetail h5 {
+    padding-top:20px;
+}
+
+.appointmentdetail label {
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+/* Media Queries */
+@media(max-width:768px){
+
+    body {
+        background: none;
+        background-image: none; 
+    }
+
+    .container {
+        box-shadow: none;
+        width: 100%;
+    }
+    
+    /* choose */
+
+    .containerhome{
+        box-shadow: none;
+        width: 100%;
+    }
+
+    .card-center{
+        box-shadow: none;
+        width: 100%;
+    }
+
+    .middle-logo img{
+        display: none;
+    }
+    #choose .card{
+        margin-bottom: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+        
+     #choose .title img {
+        width:100%;
+        height:auto;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }    
+
+    /* intake */
+
+    #progress {
+        width: 100%;
+        
+        min-height: 0vh;
+        box-shadow: 8px 0 20px -5px #C7C7C7;
+        display: inline;
+        position: relative;
+     }
+
+     #progress li {
+        background-color: white;
+        color: black;
+        display: inline;
+        padding: 20px;
+        text-decoration: none;
+        font-family: montserrat;
+        width: 50%;
+        display:inline-block;
+	    vertical-align: top;
+    }
+
+    #progress ul{
+        margin: 0; 
+        padding: 0; 
+        width: 100%;
+        display: inline;
+        position: relative;
+    }
+
+    #form{
+        width:100%;
+        float: right;
+    }
+
+    #form form{
+        width: 80%;
+    }
+
+    #form .btn-primary{
+        margin-bottom: 20px;
+    }
+    
+    #form .btn-secondary{
+       margin-bottom: 20px;
+    }
+
+
+}
