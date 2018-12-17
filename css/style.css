@@ -299,63 +299,11 @@ color: white;
     /* overview */
 
 
-    #nav {
-        min-height: 100vh;
-        box-shadow: 8px 0 20px -5px #C7C7C7;
-        position: fixed;
-        width: 230px;
-        display: flex;
-
-     }
-
-
-     .row .col-sm-2 {
-         padding: 0
-     }
-     
-     .row .col-sm-10 {
-         padding: 0;
-     }
-     #nav li {
-         background-color: white;
-         color: black;
-         display: inline-block;
-         padding: 20px;
-         text-decoration: none;
-         font-family: montserrat;
-         width: 100%;
-         float: left;
-         vertical-align: middle;
-     }
-     
-     #nav li svg {
-         margin-left: 10px;
-         margin-right: 5px;
-
-     }
-
-     #nav li.active {
-         background: #eee;
-         border-right: solid 10px #F49100;
-         font-weight: bold;
-     }
-     
-     #nav li.bottom {
-        display: inline-block;
-        vertical-align: bottom; 
-        align-items: flex-end
-     }
-
-     #nav ul{
-         margin: 0; 
-         padding: 0;
-         
-     }
-
      #view h3{
         font-family: montserrat;
         padding: 15px;
-    
+         float: left;
+         margin-left: 10px;
     }
     
     #view .header {
@@ -382,7 +330,7 @@ color: white;
     
 #view {
       float: right;
-      width: 80%;
+      width: 100%;
   }
 
 #view .appointment .fa-comments {
@@ -470,8 +418,25 @@ color: white;
     font-weight: bold;
 }
 
+.logout {
+    float: right;
+    margin: 20px;
+}
 
+#view .btn-primary{
+    background-color: #F49100;
+    border-color: #F49100;
+    padding-right:20px;
+    padding-left:20px;
+    font-size: 0.8em;
+    margin-right: 20px;
+    border-radius: 0%;
+    margin-top:10px;
+}
 
+#view .btn-primary a{
+    color: white;
+}
 
 
 

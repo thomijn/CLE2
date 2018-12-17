@@ -48,12 +48,7 @@ $appointment = mysqli_fetch_assoc($result);
 
 
 
-    <aside id="nav">
-        <ul>
-            <li class="active"> <i class="far fa-list-ul fa-1x" style="color: F49100"></i> Overzicht</li>
-            <li class="bottom"> <i class="fal fa-sign-out-alt fa-1x" style="color: black"></i> Uitloggen</li>
-        </ul>
-    </aside>
+
 
     <section id="view">
 
@@ -97,7 +92,7 @@ $appointment = mysqli_fetch_assoc($result);
 
 
 
-    <button onclick="goBack()">Go Back</button>
+
 
     <script>
         function goBack() {

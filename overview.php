@@ -43,20 +43,13 @@ While( $row = mysqli_fetch_assoc($result) ) {
 
   <div class="container">
 
-    
-      
-        <aside id="nav">
-          <ul>
-            <li class="active"> <i class="far fa-list-ul fa-1x" style="color: F49100"></i> Overzicht</li>
-            <li class="bottom"> <i class="fal fa-sign-out-alt fa-1x" style="color: black"></i> Uitloggen</li>
-          </ul>
-        </aside>
 
           <section id="view">
 
             <div class="header">
-
               <h3>Overzicht van alle afspraken</h3>
+                <button type="submit" class="btn btn-primary"><a href="new.php"><i class="far fa-plus fa-2x"style="color: white"></i></a></button>
+                <div class="logout"> <a href="logout.php"><i class="fal fa-sign-out-alt fa-1x" style="color: black"></i> Uitloggen</a>   </div>
             </div>
 
 <?php
@@ -93,8 +86,8 @@ While( $row = mysqli_fetch_assoc($result) ) {
                           echo $appointment['FirstName'];  echo $appointment['LastName'];
                           ?>
                       </p>
-                      <i class="far fa-trash-alt"></i>
-                      <i class="far fa-edit"></i>
+                          <a href="delete.php?id=<?= $appointment['AppointmentId']; ?>"><i class="far fa-trash-alt"></i></a>
+                          <a href="edit.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-edit"></i></a>
                   </div> </a>
               <?php    } ?>
 
