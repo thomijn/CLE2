@@ -48,9 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <form class="login" action="adminlogin.php" method="POST">
 
                     <div class="form-group">
+                        <span class="error"><?= isset($errors['email']) ? $errors['email'] : ''; ?></span>
                         <input type="email" name="email" class="form-control" placeholder="Gebruikersnaam" aria-label="Username">
                     </div>
                     <div class="form-group">
+                        <span class="error"><?= isset($errors['password']) ? $errors['password'] : ''; ?></span>
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Wachtwoord">
                     </div>
                     <button type="submit" name="login" class="btn btn-primary">Log in

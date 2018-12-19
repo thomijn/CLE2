@@ -71,7 +71,13 @@ While( $row = mysqli_fetch_assoc($result) ) {
             ?> <i class="fal fa-camera-alt fa-3x" style="color: #F49100"></i> <?php
             }
             ?>
-            <h2><?= $appointment[0]['Type']; ?></h2>
+            <h2><?php if($appointment[0]['Type'] =='Marriage'){
+                echo 'Intake gesprek';
+                } else if ($appointment[0]['Type'] =='Loveshoot') {
+                    echo 'loveshoot';
+                } else{
+                    echo 'familyshoot';
+                }; ?></h2>
         </div>
 
         <div class="appointmentdetail">

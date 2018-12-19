@@ -14,8 +14,9 @@ or die('Error' .mysqli_error($db).'<br>query:'. $query);
 
 
 if ( mysqli_num_rows($result) == 0) { //user doesn't exist!
-    $_SESSION['message'] = "There is no user with that email!";
-    header("location: error.php");
+
+    $errors['email'] = 'Er is geen gebruiker met dit emailadres';
+
 
 }
 else { //user exists
@@ -33,7 +34,6 @@ else { //user exists
 
     }
     else{
-        $_SESSION['message'] = "You have entered the wrong password, try again!";
-        header("location: error.php");
+        $errors['password'] = 'Incorrect wachtwoord!';
     }
 }
