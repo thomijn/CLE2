@@ -385,6 +385,24 @@ color: white;
     margin-right: 20px;
 }
 
+#view .header .input-group{
+    float: left;
+    width: 30%;
+    margin: 12px;
+}
+
+#view .header input{
+    border-radius:0;
+
+}
+
+#view .header .input-group button {
+    background-color: #FFFFFF;
+    border-color: #ced4da;
+    border-radius:0;
+    border-right:0;
+}
+
 .appointmentheader{
     margin:50px;
 }

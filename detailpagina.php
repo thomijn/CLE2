@@ -14,7 +14,11 @@ AND appointment.AppointmentId = $AppointmentId";
 $result = mysqli_query($db, $query)
 or die('Error' .mysqli_error($db).'<br>query:'. $query);
 
-$appointment = mysqli_fetch_assoc($result);
+$appointment = [];
+While( $row = mysqli_fetch_assoc($result) ) {
+    $appointment[] = $row;
+}
+
 
 
 ?>
@@ -60,24 +64,25 @@ $appointment = mysqli_fetch_assoc($result);
         <div class='appointmentheader';>
 
             <?php
-            if ($appointment['Type'] == 'Marriage'){
+            if ($appointment[0]['Type'] == 'Marriage'){
             ?> <i class="fal fa-comments fa-3x" style="color: #F49100"></i> <?php
             }
             else {
             ?> <i class="fal fa-camera-alt fa-3x" style="color: #F49100"></i> <?php
             }
             ?>
-            <h2><?= $appointment['Type']; ?></h2>
+            <h2><?= $appointment[0]['Type']; ?></h2>
         </div>
 
         <div class="appointmentdetail">
-            <label for="">Datum:</label> <?= date(" d-m-Y ", strtotime($appointment['DateTime'])) ?> <br>
-            <label for="">Aantal personen:</label> <?= $appointment['NumberOfPeople']; ?> <br>
+            <label for="">Datum:</label> <?= date(" d-m-Y ", strtotime($appointment[0]['DateTime'])) ?> <br>
+            <label for="">Aantal personen:</label> <?= $appointment[0]['NumberOfPeople']; ?> <br>
 
             <h5>contactgegevens:</h5>
-            <label for="">Naam:</label> <?= $appointment['FirstName']; ?> <?= $appointment['LastName']; ?>  <br>
-            <label for="">Mobiele nummer:</label> <?= $appointment['Mobilenumber']; ?> <br>
-            <label for="">Email:</label> <?= $appointment['Email']; ?>
+            <label for="">Parter 1</label> <?= $appointment[0]['FirstName']; ?> <?= $appointment[0]['LastName']; ?>  <br>
+            <label for="">Partner 2</label> <?= $appointment[1]['FirstName']; ?> <?= $appointment[1]['LastName']; ?>  <br>
+            <label for="">Mobiele nummer:</label> <?= $appointment[0]['Mobilenumber']; ?> <br>
+            <label for="">Email:</label> <?= $appointment[0]['Email']; ?>
 
 
 

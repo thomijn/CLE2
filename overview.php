@@ -2,10 +2,8 @@
 
 require_once "./includes/database.php";
 
-$query =   "SELECT appointment.*, customer.*
-FROM appointment, customer, appointment_customer
-WHERE appointment.AppointmentId = appointment_customer.AppointmentId
-AND customer.CustomerId = appointment_customer.CustomerId";
+$query =   "SELECT appointment.*
+FROM appointment";
 
 $result = mysqli_query($db, $query)
 or die('Error' .mysqli_error($db).'<br>query:'. $query);
@@ -14,7 +12,6 @@ $appointments = [];
 While( $row = mysqli_fetch_assoc($result) ) {
     $appointments[] = $row;
 }
-
 
 
 ?>
@@ -50,6 +47,16 @@ While( $row = mysqli_fetch_assoc($result) ) {
             <div class="header">
               <h3>Overzicht van alle afspraken</h3>
                 <button type="submit" class="btn btn-primary"><a href="new.php"><i class="far fa-plus fa-2x"style="color: white"></i></a></button>
+
+
+                    <div class="input-group">
+                 <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+                 </span>
+                        <input type="text" class="form-control" placeholder="Search for...">
+                    </div><!-- /input-group -->
+
+
                 <div data-toggle="modal" data-target=".bs-example-modal-sm" class="logout"> <i  class="fal fa-sign-out-alt fa-1x" style="color: black"></i> Uitloggen   </div>
             </div>
 
@@ -87,10 +94,7 @@ While( $row = mysqli_fetch_assoc($result) ) {
                           echo date(" d-m-Y ", strtotime($appointment['DateTime']));
                           ?></h5>
                       <p>
-                          <?php
-                          echo $appointment['FirstName'];  echo $appointment['LastName'];
 
-                          ?>
                       </p>
                           <a href="delete.php?id=<?= $appointment['AppointmentId']; ?>"><i class="far fa-trash-alt"></i></a>
                           <a href="edit.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-edit"></i></a>
