@@ -16,6 +16,7 @@ While( $row = mysqli_fetch_assoc($result) ) {
 }
 
 
+
 ?>
 
 <!doctype html>
@@ -49,12 +50,14 @@ While( $row = mysqli_fetch_assoc($result) ) {
             <div class="header">
               <h3>Overzicht van alle afspraken</h3>
                 <button type="submit" class="btn btn-primary"><a href="new.php"><i class="far fa-plus fa-2x"style="color: white"></i></a></button>
-                <div class="logout"> <a href="logout.php"><i class="fal fa-sign-out-alt fa-1x" style="color: black"></i> Uitloggen</a>   </div>
+                <div data-toggle="modal" data-target=".bs-example-modal-sm" class="logout"> <i  class="fal fa-sign-out-alt fa-1x" style="color: black"></i> Uitloggen   </div>
             </div>
 
 <?php
               foreach ($appointments as $key => $appointment) { ?>
-                  <a href="detailpagina.php?id=<?= $appointment['AppointmentId']; ?>"> <div class=" appointment">
+
+                  <a href="detailpagina.php?id=<?= $appointment['AppointmentId']; ?>">
+                      <div class=" appointment">
                       <?php
                       if ($appointment['Type'] == 'Marriage'){
                           ?> <i class="fal fa-comments fa-3x" style="color: #F49100"></i> <?php
@@ -63,7 +66,9 @@ While( $row = mysqli_fetch_assoc($result) ) {
                           ?> <i class="fal fa-camera-alt fa-3x" style="color: #F49100"></i> <?php
                       }
                       ?>
-                      <?php
+
+
+                          <?php
 
                       if ($appointment['Type'] == 'Loveshoot') { ?>
                           <h5> LOVESHOOT </h5>
@@ -84,6 +89,7 @@ While( $row = mysqli_fetch_assoc($result) ) {
                       <p>
                           <?php
                           echo $appointment['FirstName'];  echo $appointment['LastName'];
+
                           ?>
                       </p>
                           <a href="delete.php?id=<?= $appointment['AppointmentId']; ?>"><i class="far fa-trash-alt"></i></a>
@@ -92,6 +98,16 @@ While( $row = mysqli_fetch_assoc($result) ) {
               <?php    } ?>
 
 
+
+              <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
+                          <div class="modal-header"><h4>Logout <i class="far fa-lock"></i></h4></div>
+                          <div class="modal-body"> Weet je zeker dat je wilt uitloggen?</div>
+                          <div class="modal-footer"><a href="logout.php" class="btn btn-primary ">UITLOGGEN</a></div>
+                      </div>
+                  </div>
+              </div>
 
 
 
