@@ -96,7 +96,7 @@ While( $row = mysqli_fetch_assoc($result) ) {
                       <p>
 
                       </p>
-                          <a href="delete.php?id=<?= $appointment['AppointmentId']; ?>"><i class="far fa-trash-alt"></i></a>
+                          <div data-toggle="modal" data-target=".bs-delete-modal-sm" ><i class="far fa-trash-alt"></i>   </div>
                           <a href="edit.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-edit"></i></a>
                   </div> </a>
               <?php    } ?>
@@ -113,6 +113,16 @@ While( $row = mysqli_fetch_assoc($result) ) {
                   </div>
               </div>
 
+
+              <div class="modal bs-delete-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
+                          <div class="modal-header"><h4>verwijderen <i class="far fa-trash"></i></h4></div>
+                          <div class="modal-body"> Weet je zeker dat je deze afspraak wilt verwijderen</div>
+                          <div class="modal-footer"><a href="logout.php" class="btn btn-primary ">VERWIJDEREN</a></div>
+                      </div>
+                  </div>
+              </div>
 
 
 

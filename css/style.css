@@ -28,6 +28,7 @@ overflow: hidden;
 
 .error{
     color: red;
+    text-align: center;
 }
 
 /* Choose page */
@@ -224,6 +225,7 @@ border-radius: 0%;
     font-size: 0.8em;
     border-radius: 0%;
 }
+
 
 /* datepicker */
 
@@ -476,11 +478,48 @@ color: white;
      box-shadow: 0 0 11px rgba(33 ,33,33,.28);
 }
 
+ .newappointment{
+     width:80%;
+     margin: auto;
+ }
 
+ .newappointment h6{
+     margin-top:20px;
+     margin-bottom:20px;
 
+ }
 
+.newappointment h5{
+    margin-top:20px;
+    margin-bottom:20px;
+}
 
+.newappointment select{
+    margin-bottom:15px;
+}
 
+.newappointment .btn-primary{
+    background-color: #F49100;
+    border-color: #F49100;
+    padding-right:20px;
+    padding-left:20px;
+    font-size: 0.8em;
+    margin-right: 20px;
+    border-radius: 0%;
+    margin-bottom: 50px;
+
+}
+
+.newappointment .btn-secondary{
+    background-color: #D1D1D1;
+    border-color: #D1D1D1;
+    padding-right:20px;
+    padding-left:20px;
+    font-size: 0.8em;
+    border-radius: 0%;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
 
 
 

@@ -34,6 +34,6 @@ else { //user exists
 
     }
     else{
-        $errors['password'] = 'Incorrect wachtwoord!';
+        $errors['password'] = 'Wachtwoord is onjuist';
     }
 }
