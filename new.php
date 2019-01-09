@@ -1,3 +1,64 @@
+<?php
+
+session_start();
+
+if (isset($_POST['submit'])) {
+    //Require database in this file & image helpers
+    require_once "./includes/database.php";
+
+
+    //Postback with the data showed to the user, first retrieve data from 'Super global'
+    $FirstName = mysqli_real_escape_string($db, $_POST['FirstName']);
+    $LastName   = mysqli_escape_string($db, $_POST['LastName']);
+    $FirstName1  = mysqli_escape_string($db, $_POST['FirstName1']);
+    $LastName1   = mysqli_escape_string($db, $_POST['LastName1']);
+    $Email = mysqli_escape_string($db, $_POST['Email']);
+    $Mobilenumber = mysqli_escape_string($db, $_POST['Mobilenumber']);
+    $Trouwdatum = mysqli_escape_string($db, $_POST['Trouwdatum']);
+    $Datum = mysqli_escape_string($db, $_POST['Datum']);
+    $Type = mysqli_escape_string($db, $_POST['Type']);
+
+    //Require the form validation handling
+
+
+
+        $query1 = "INSERT INTO Customer (Firstname, LastName)
+                  VALUES ('$FirstName', '$LastName'";
+
+        $query2 = "INSERT INTO Customer (Firstname, LastName)
+                  VALUES ('$FirstName1', '$LastName1'";
+
+        $query3 = "INSERT INTO appointment (Type, DateTime)
+                  VALUES ('marriage', '$Datum'";
+
+        $query4 = "INSERT INTO Contactinfo (Type, DateTime)
+                  VALUES ('marriage', '$Datum'";
+
+
+
+    $result = mysqli_query($db, $query)
+
+        or die('Error: '.$query);
+
+        if ($result) {
+            header('Location: overview.php');
+            exit;
+        } else {
+            $errors[] = 'Something went wrong in your database query: ' . mysqli_error($db);
+        }
+        //Close connection
+        mysqli_close($db);
+    }
+
+
+if(!isset($_SESSION['logged_in'])) {
+    // redirect to login page
+    header('Location: adminlogin.php');
+    exit;
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -56,11 +117,11 @@
             <h5>Kies een soort afspraak</h5>
 
             <div class="form-group">
-            <select class="form-control" id="sel1" onchange="changeOptions(this)">
+            <select name="type" class="form-control" id="sel1" onchange="changeOptions(this)">
                 <option value="" selected="selected">geen</option>
-                <option value="form_1">Intake</option>
-                <option value="form_2">Familyshoot</option>
-                <option value="form_3">Loveshoot</option>
+                <option name="Intake" value="form_1">Intake</option>
+                <option name="Familyshoot" value="form_2">Familyshoot</option>
+                <option name="Loveshoot" value="form_3">Loveshoot</option>
             </select>
             </div>
 
@@ -71,43 +132,40 @@
                     <h6> Partner 1</h6>
                     <div class="form-row">
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Voornaam">
+                            <input type="text" name="FirstName" class="form-control" placeholder="Voornaam">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Achternaam">
+                            <input type="text" name="LastName" class="form-control" placeholder="Achternaam">
                         </div>
                     </div>
 
                     <h6> Partner 2</h6>
                     <div class="form-row">
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Voornaam">
+                            <input type="text" name="FirstName1" class="form-control" placeholder="Voornaam">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Achternaam">
+                            <input type="text" name="LastName1" class="form-control" placeholder="Achternaam">
                         </div>
                     </div>
 
                     <h6> Contactgegevens</h6>
                     <div class="form-group">
 
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
+                        <input type="text" name="Mobilenumber" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
                     </div>
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
+                        <input type="text" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
                     </div>
 
-                    <div class="form-group">
 
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
-                    </div>
 
                 <div class="form-group row">
                     <label for="example-text-input" class="col-2 col-form-label">Trouwdatum</label>
                     <div class="col-10">
-                        <input  class="input" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
+                        <input  class="input" name="Trouwdatum" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
                                data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle" class="form-control" type="date" value="" id="example-date-input">
                     </div>
                 </div>
@@ -116,13 +174,13 @@
                 <div class="form-group row">
                     <label for="example-text-input" class="col-2 col-form-label">datum</label>
                     <div class="col-10">
-                        <input class="input" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
+                        <input class="input" name="Datum" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
                                data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle"  type="date" value="" id="example-date-input">
                     </div>
                 </div>
 
 
-                    <button type="submit" class="btn btn-primary"><a href="datepicker.php">OPSLAAN</a></button>
+                    <button type="submit" name="submit" class="btn btn-primary">OPSLAAN</button>
                     <button type="submit" class="btn btn-secondary"><a href="choose.php">ANNULEREN</a></button>
 
             </form>
@@ -151,11 +209,6 @@
                 <div class="form-group">
 
                     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
-                </div>
-
-                <div class="form-group">
-
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
                 </div>
 
                 <div class="form-row">
@@ -215,10 +268,7 @@
                     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
                 </div>
 
-                <div class="form-group">
 
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
-                </div>
 
                 <div class="form-group row">
                     <label for="example-text-input" class="col-2 col-form-label">datum</label>

@@ -1,5 +1,7 @@
 <?Php
 
+session_start();
+
 require_once "./includes/database.php";
 
 $query =   "SELECT appointment.*
@@ -13,6 +15,11 @@ While( $row = mysqli_fetch_assoc($result) ) {
     $appointments[] = $row;
 }
 
+if(!isset($_SESSION['logged_in'])) {
+    // redirect to login page
+    header('Location: adminlogin.php');
+    exit;
+}
 
 ?>
 
@@ -96,7 +103,7 @@ While( $row = mysqli_fetch_assoc($result) ) {
                       <p>
 
                       </p>
-                          <div data-toggle="modal" data-target=".bs-delete-modal-sm" ><i class="far fa-trash-alt"></i>   </div>
+                          <div id="myAnchor" data-toggle="modal" data-target=".bs-delete-modal-sm" ><i class="far fa-trash-alt"></i>   </div>
                           <a href="edit.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-edit"></i></a>
                   </div> </a>
               <?php    } ?>
@@ -133,14 +140,18 @@ While( $row = mysqli_fetch_assoc($result) ) {
 
 
           </section>
-      
 
 
 
 
 
-    
 
+
+      <script>
+          document.getElementById("myAnchor").addEventListener("click", function(event){
+              event.preventDefault()
+          });
+      </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
