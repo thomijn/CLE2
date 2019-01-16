@@ -7,8 +7,12 @@ require_once "./includes/database.php";
 $query =   "SELECT appointment.*
 FROM appointment";
 
+
+
 $result = mysqli_query($db, $query)
 or die('Error' .mysqli_error($db).'<br>query:'. $query);
+
+
 
 $appointments = [];
 While( $row = mysqli_fetch_assoc($result) ) {
@@ -40,6 +44,9 @@ if(!isset($_SESSION['logged_in'])) {
   <script defer src="./css/js/all.js"></script>
   <!--load all styles -->
 
+    <link href="./css/hover.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <title>Fotografie Gertenbach</title>
 </head>
@@ -53,25 +60,25 @@ if(!isset($_SESSION['logged_in'])) {
 
             <div class="header">
               <h3>Overzicht van alle afspraken</h3>
-                <button type="submit" class="btn btn-primary"><a href="new.php"><i class="far fa-plus fa-2x"style="color: white"></i></a></button>
+                <a href="new.php"><button type="submit" class="btn btn-primary"><i class="far fa-plus fa-2x"style="color: white"></i></a></button>
 
 
                     <div class="input-group">
                  <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Go!</button>
+                <button class="btn btn-default" type="button">Ga</button>
                  </span>
-                        <input type="text" class="form-control" placeholder="Search for...">
+                        <input type="text" class="form-control" placeholder="Zoeken...">
                     </div><!-- /input-group -->
 
 
-                <div data-toggle="modal" data-target=".bs-example-modal-sm" class="logout"> <i  class="fal fa-sign-out-alt fa-1x" style="color: black"></i> Uitloggen   </div>
+                <div  data-toggle="modal" data-target=".bs-example-modal-sm" class="logout  "> <i  class="fal fa-sign-out-alt fa-1x " style="color: black"></i> Uitloggen   </div>
             </div>
 
 <?php
               foreach ($appointments as $key => $appointment) { ?>
 
                   <a href="detailpagina.php?id=<?= $appointment['AppointmentId']; ?>">
-                      <div class=" appointment">
+                      <div   class=" appointment hvr-underline-from-center ">
                       <?php
                       if ($appointment['Type'] == 'Marriage'){
                           ?> <i class="fal fa-comments fa-3x" style="color: #F49100"></i> <?php
@@ -103,7 +110,7 @@ if(!isset($_SESSION['logged_in'])) {
                       <p>
 
                       </p>
-                          <div id="myAnchor" data-toggle="modal" data-target=".bs-delete-modal-sm" ><i class="far fa-trash-alt"></i>   </div>
+                          <div class="myAnchor" data-toggle="modal" data-target=".bs-delete-modal-sm" ><i class="far fa-trash-alt"></i>   </div>
                           <a href="edit.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-edit"></i></a>
                   </div> </a>
               <?php    } ?>
@@ -126,7 +133,7 @@ if(!isset($_SESSION['logged_in'])) {
                       <div class="modal-content">
                           <div class="modal-header"><h4>verwijderen <i class="far fa-trash"></i></h4></div>
                           <div class="modal-body"> Weet je zeker dat je deze afspraak wilt verwijderen</div>
-                          <div class="modal-footer"><a href="logout.php" class="btn btn-primary ">VERWIJDEREN</a></div>
+                          <div class="modal-footer"><a href="delete.php?id=<?= $appointment['AppointmentId'];?>" class="btn btn-primary ">VERWIJDEREN</a></div>
                       </div>
                   </div>
               </div>
@@ -148,8 +155,10 @@ if(!isset($_SESSION['logged_in'])) {
 
 
       <script>
-          document.getElementById("myAnchor").addEventListener("click", function(event){
-              event.preventDefault()
+          $(document).ready(function(){
+              $(".myAnchor").click(function(event){
+                  event.preventDefault();
+              });
           });
       </script>
 

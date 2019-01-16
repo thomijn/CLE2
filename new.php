@@ -3,52 +3,43 @@
 session_start();
 
 if (isset($_POST['submit'])) {
-    //Require database in this file & image helpers
+
     require_once "./includes/database.php";
 
 
-    //Postback with the data showed to the user, first retrieve data from 'Super global'
-    $FirstName = mysqli_real_escape_string($db, $_POST['FirstName']);
-    $LastName   = mysqli_escape_string($db, $_POST['LastName']);
-    $FirstName1  = mysqli_escape_string($db, $_POST['FirstName1']);
-    $LastName1   = mysqli_escape_string($db, $_POST['LastName1']);
-    $Email = mysqli_escape_string($db, $_POST['Email']);
-    $Mobilenumber = mysqli_escape_string($db, $_POST['Mobilenumber']);
-    $Trouwdatum = mysqli_escape_string($db, $_POST['Trouwdatum']);
-    $Datum = mysqli_escape_string($db, $_POST['Datum']);
-    $Type = mysqli_escape_string($db, $_POST['Type']);
+    $originalDate2 = $_POST['DateTime'];
+    $date = new DateTime($originalDate2);
+    $newDate = $date->format('Y-m-d');
 
-    //Require the form validation handling
+    $Type = mysqli_real_escape_string($db, $_POST['Type']);
+    $DateTime = mysqli_real_escape_string($db, $newDate);
+    $NumberOfPeople = mysqli_real_escape_string($db, $_POST['NumberOfPeople']);
 
 
 
-        $query1 = "INSERT INTO Customer (Firstname, LastName)
-                  VALUES ('$FirstName', '$LastName'";
-
-        $query2 = "INSERT INTO Customer (Firstname, LastName)
-                  VALUES ('$FirstName1', '$LastName1'";
-
-        $query3 = "INSERT INTO appointment (Type, DateTime)
-                  VALUES ('marriage', '$Datum'";
-
-        $query4 = "INSERT INTO Contactinfo (Type, DateTime)
-                  VALUES ('marriage', '$Datum'";
 
 
+    $query = "INSERT INTO `appointment`( `Type`, `DateTime`, `NumberOfPeople`) VALUES ('$Type','$DateTime','$NumberOfPeople')";
 
     $result = mysqli_query($db, $query)
+    or die('Error: '.$query);
 
-        or die('Error: '.$query);
+    $last_id = mysqli_insert_id($db);
 
-        if ($result) {
-            header('Location: overview.php');
-            exit;
-        } else {
-            $errors[] = 'Something went wrong in your database query: ' . mysqli_error($db);
-        }
-        //Close connection
-        mysqli_close($db);
+
+
+
+    if ($result) {
+        $url = "new2.php?id=$last_id";
+        header("Location: ".$url);
+        exit;
+    } else {
+        $errors[] = 'Something went wrong in your database query: ' . mysqli_error($db);
     }
+    //Close connection
+    mysqli_close($db);
+
+}
 
 
 if(!isset($_SESSION['logged_in'])) {
@@ -93,10 +84,6 @@ if(!isset($_SESSION['logged_in'])) {
 
 <div class="container">
 
-
-
-
-
     <section id="view">
 
         <div class="header">
@@ -104,194 +91,50 @@ if(!isset($_SESSION['logged_in'])) {
             <h3>Detailpagina</php></h3>
         </div>
 
-        <div class='appointmentheader';>
 
-           <h2>Nieuwe afspraak aanmaken</h2>
-
-        </div>
 
 
 
         <div class="newappointment">
 
-            <h5>Kies een soort afspraak</h5>
-
-            <div class="form-group">
-            <select name="type" class="form-control" id="sel1" onchange="changeOptions(this)">
-                <option value="" selected="selected">geen</option>
-                <option name="Intake" value="form_1">Intake</option>
-                <option name="Familyshoot" value="form_2">Familyshoot</option>
-                <option name="Loveshoot" value="form_3">Loveshoot</option>
-            </select>
+            <div class='appointmentheader';>
+                <h2>Nieuwe afspraak aanmaken</h2>
             </div>
 
+            <h5>Kies een soort afspraak</h5>
 
-            <form class="className" name="form_1" id="form_1" style="display:none">
 
-                    <h5> Vul onderstaande gegevens in. </h5>
-                    <h6> Partner 1</h6>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="text" name="FirstName" class="form-control" placeholder="Voornaam">
+            <form method="post" action="new.php">
+
+                <div class="form-group">
+                    <select name="Type" class="form-control" id="sel1" ">
+                    <option name="Intake" value="Intake">Intake</option>
+                    <option name="Familyshoot" value="Familyshoot">Familyshoot</option>
+                    <option name="Loveshoot" value="Loveshoot">Loveshoot</option>
+                    </select>
+
+                    <div class="form-group row">
+                        <label  class="col-1 col-form-label">Datum</label>
+                        <div class="col-7">
+                            <input class="input" data-max-year="2030" name="DateTime" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
+                                   data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle"  type="date" value="" id="example-date-input">
                         </div>
-                        <div class="col">
-                            <input type="text" name="LastName" class="form-control" placeholder="Achternaam">
-                        </div>
-                    </div>
+                            <div class="col-4">
+                                <input type="NumberOfPeople"  name="NumberOfPeople" class="form-control" placeholder="Aantal personen (standaard 2)">
+                            </div>
 
-                    <h6> Partner 2</h6>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="text" name="FirstName1" class="form-control" placeholder="Voornaam">
-                        </div>
-                        <div class="col">
-                            <input type="text" name="LastName1" class="form-control" placeholder="Achternaam">
-                        </div>
-                    </div>
-
-                    <h6> Contactgegevens</h6>
-                    <div class="form-group">
-
-                        <input type="text" name="Mobilenumber" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
-                    </div>
-
-                    <div class="form-group">
-
-                        <input type="text" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
                     </div>
 
 
 
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-2 col-form-label">Trouwdatum</label>
-                    <div class="col-10">
-                        <input  class="input" name="Trouwdatum" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
-                               data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle" class="form-control" type="date" value="" id="example-date-input">
-                    </div>
-                </div>
 
 
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-2 col-form-label">datum</label>
-                    <div class="col-10">
-                        <input class="input" name="Datum" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
-                               data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle"  type="date" value="" id="example-date-input">
-                    </div>
-                </div>
-
-
-                    <button type="submit" name="submit" class="btn btn-primary">OPSLAAN</button>
-                    <button type="submit" class="btn btn-secondary"><a href="choose.php">ANNULEREN</a></button>
-
+                    <button type="submit" name="submit" class="btn btn-primary">VOLGENDE</button>
             </form>
-
-
-
-            <form class="className" name="form_2" id="form_2" style="display:none">
-                <h5> Vul onderstaande gegevens in. </h5>
-                <h6> Contactpersoon</h6>
-                <div class="form-row">
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Voornaam">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Achternaam">
-                    </div>
-                </div>
-
-
-                <h6> Contactgegevens</h6>
-                <div class="form-group">
-
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
-                </div>
-
-                <div class="form-group">
-
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
-                </div>
-
-                <div class="form-row">
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="Aantal personen">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="Waarvan kinderen">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-2 col-form-label">datum</label>
-                    <div class="col-10">
-                        <input class="input" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
-                               data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle" class="form-control" type="date" value="" id="example-date-input">
-                    </div>
-                </div>
-
-
-                <button type="submit" class="btn btn-primary"><a href="datepicker.php">OPSLAAN</a></button>
-                <button type="submit" class="btn btn-secondary"><a href="choose.php">ANNULEREN</a></button>
-            </form>
-
-
-
-            <form class="className" name="form_3" id="form_3" style="display:none">
-                <h5> Vul onderstaande gegevens in. </h5>
-                <h6> Persoon 1</h6>
-                <div class="form-row">
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Voornaam">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Achternaam">
-                    </div>
-                </div>
-
-                <h6> Persoon 2</h6>
-                <div class="form-row">
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Voornaam">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Achternaam">
-                    </div>
-                </div>
-
-                <h6> Contactgegevens</h6>
-                <div class="form-group">
-
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
-                </div>
-
-                <div class="form-group">
-
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
-                </div>
-
-
-
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-2 col-form-label">datum</label>
-                    <div class="col-10">
-                        <input class="input" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
-                               data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle" class="form-control" type="date" value="" id="example-date-input">
-                    </div>
-                </div>
-
-
-                <button type="submit" class="btn btn-primary"><a href="datepicker.php">OPSLAAN</a></button>
-                <button type="submit" class="btn btn-secondary"><a href="choose.php">ANNULEREN</a></button>
-            </form>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
-
-
-
 
         </div>
 
-
-
-
-
+        </div>
     </section>
 
 
@@ -300,19 +143,7 @@ if(!isset($_SESSION['logged_in'])) {
 
 
 
-    <script>
-        function changeOptions(selectEl) {
-            let selectedValue = selectEl.options[selectEl.selectedIndex].value;
-            let subForms = document.getElementsByClassName('className')
-            for (let i = 0; i < subForms.length; i += 1) {
-                if (selectedValue === subForms[i].name) {
-                    subForms[i].setAttribute('style', 'display:block')
-                } else {
-                    subForms[i].setAttribute('style', 'display:none')
-                }
-            }
-        }
-    </script>
+
 
     <script>
         function goBack() {

@@ -74,6 +74,24 @@ text-align: center;
 padding: 20px;
 }
 
+#choose form {
+    width:100%;
+}
+
+#choose .col-sm-6{
+    max-width: 100%;
+}
+
+#choose .btn-primary{
+    background-color: #ffffff;
+    border-color: #ffffff;
+    padding-right:20px;
+    padding-left:20px;
+    font-size: 0.8em;
+    border-radius: 0%;
+}
+
+
 #choose .title {
 background-color: #F49100;
 width: 100%;
@@ -125,6 +143,7 @@ color: black;
 }
 
 #choose .card-title{
+    color: #000000;
     font-family: montserrat;
     text-align: center;
     margin-top: 10px;
@@ -201,6 +220,15 @@ padding: 20px;
     justify-content: center;
     
 }
+
+#form select {
+    width: 60%;
+    margin:auto;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
 
 #form input{
 background-color: #F5F5F5;
@@ -309,6 +337,7 @@ color: white;
         padding: 15px;
          float: left;
          margin-left: 10px;
+
     }
     
     #view .header {
@@ -324,9 +353,9 @@ color: white;
         margin: auto;
         height: 100px;
         margin-top: 20px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 0 11px rgba(33 ,33,33,.28);
         text-decoration: none;
-    transition: box-shadow .3s;
+
 
 }
 
@@ -409,24 +438,27 @@ color: white;
 }
 
 .appointmentheader{
-    margin:50px;
+    margin-top:50px;
+    margin-bottom: 50px;
 }
 
 .appointmentheader .fa-camera-alt {
     float:left;
     margin-right: 20px;
+    margin-left: 5%;
 }
 
 .appointmentheader .fa-comments {
     float:left;
     margin-right: 20px;
+    margin-left: 5%;
 
 }
 
 
 .appointmentheader h2  {
     font-family: montserrat;
-    margin-left: 20px;
+
 }
 
 .appointmentdetail {
@@ -434,6 +466,26 @@ color: white;
     margin:50px;
     margin-top:20px;
 }
+
+.confirmdetail {
+
+    text-align: center;
+    margin-top:20px;
+}
+
+.confirmdetail h5 {
+    padding-top:20px;
+    margin-bottom: 20px;
+}
+
+.email p {
+    text-align: center;
+}
+
+.confirmdetail label {
+    font-weight: bold;
+}
+
 
 .appointmentdetail h5 {
     padding-top:20px;
@@ -448,16 +500,24 @@ color: white;
     margin: 20px;
 }
 
+.logout:hover{
+
+}
+
 #view .btn-primary{
     background-color: #F49100;
     border-color: #F49100;
     padding-right:20px;
     padding-left:20px;
-    font-size: 0.8em;
+    font-size: 12px;
     margin-right: 20px;
     border-radius: 0%;
-    margin-top:10px;
+    margin-top:11px;
     color:white;
+
+}
+
+#view .btn-primary:hover{
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
@@ -474,9 +534,7 @@ color: white;
     border-radius: 0;
 }
 
- #view .appointment:hover{
-     box-shadow: 0 0 11px rgba(33 ,33,33,.28);
-}
+
 
  .newappointment{
      width:80%;

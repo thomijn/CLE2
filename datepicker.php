@@ -1,3 +1,43 @@
+<?php
+
+$AppointmentId = $_GET['id'];
+
+if (isset($_POST['submit'])) {
+
+
+    $originalDate2 = $_POST['DateTime'];
+    $date = new DateTime($originalDate2);
+    $newDate = $date->format('Y-m-d');
+    $AppointmentId = $_POST['id'];
+
+    $url = "confirm.php?id=$AppointmentId&DateTime=$newDate";
+    header("Location: ".$url);
+
+}
+
+if(!isset($_GET['id'])) {
+
+    header('Location: choose.php');
+
+}
+
+if(isset($_POST['cancel'])){
+
+    require_once "./includes/database.php";
+
+
+    $query = "DELETE FROM appointment WHERE AppointmentId=$AppointmentId";
+
+    $result = mysqli_query($db, $query);
+    header('Location: choose.php');
+
+    //Close connection
+    mysqli_close($db);
+
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -21,7 +61,7 @@
     <script src="./css/jquery.js"></script>
     <script src="./css/datedropper.js"></script>
 
-
+    <link rel="stylesheet" href="./css/bulma.css">
 
     <title>Fotografie Gertenbach</title>
 </head>
@@ -42,18 +82,18 @@
                 <h3> Plan hier een gesprek in <br> voor uw bruiloftsfotografie </h3>
 
 
-                <form>
+                <form action="" method="post">
                     <h5> Kies een datum. </h5>
                     <div class="form-group">
-                        <input type="text" data-format="d-m-Y" data-disabled-days="12/11/2018" data-lang="nl"
+                        <input type="text" name="DateTime" data-max-year="2030" data-format="d-m-Y" data-disabled-days="12/11/2018" data-lang="nl"
                             data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle"
-                            class="form-control" id="formGroupExampleInput">
+                            class="input" id="formGroupExampleInput">
                     </div>
 
                     <p>Jouw gekozen datum is: </p>
-
-                    <button type="submit" class="btn btn-primary"><a href="intake.php">VOLGENDE</a></button>
-                    <button type="submit" class="btn btn-secondary"><a href="intake.php">VORIGE</a></button>
+                    <input type="hidden" name="id" value="<?= $AppointmentId; ?>"/>
+                    <button type="submit" name="submit" class="btn btn-primary">VOLGENDE</button>
+                    <button type="cancel" name="cancel" class="btn btn-secondary">ANNULEREN</button>
 
 
                 </form>
@@ -63,7 +103,7 @@
     </div>
 
     <script>
-        $('input').dateDropper();
+        $('.input').dateDropper();
     </script>
 
     <!-- Optional JavaScript -->

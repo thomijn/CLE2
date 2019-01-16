@@ -71,7 +71,7 @@ if(!isset($_SESSION['logged_in'])) {
 
             <?php
             if ($appointment[0]['Type'] == 'Marriage'){
-            ?> <i class="fal fa-comments fa-3x" style="color: #F49100"></i> <?php
+            ?> <i class="fal fa-comments fa-3x" style="color: #F49100"  ></i> <?php
             }
             else {
             ?> <i class="fal fa-camera-alt fa-3x" style="color: #F49100"></i> <?php

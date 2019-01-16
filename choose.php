@@ -1,3 +1,37 @@
+<?php
+
+require_once "./includes/database.php";
+
+if(isset($_POST['Marriage'])){
+
+    $Type = mysqli_real_escape_string($db, $_POST['Type']);
+
+    $query = "INSERT INTO `appointment`( `Type` ) VALUES ('$Type')";
+    $result = mysqli_query($db, $query)
+    or die('Error: '.$query);
+
+    $last_id = mysqli_insert_id($db);
+
+    $url = "intake.php?id=$last_id";
+    header("Location: ".$url);
+}
+
+if(isset($_POST['Shoot'])){
+
+    $Type = mysqli_real_escape_string($db, $_POST['Type']);
+
+    $query = "INSERT INTO `appointment`( `Type` ) VALUES ('$Type')";
+    $result = mysqli_query($db, $query)
+    or die('Error: '.$query);
+
+    $last_id = mysqli_insert_id($db);
+
+    $url = "shoot.php?id=$last_id";
+    header("Location: ".$url);
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -32,30 +66,41 @@
                 </div>
                 <p> Kies hier wat voor soort afspraak je wilt plannen </p>
                 <div class="row" class="d-flex justify-content-center">
+                    <form action="" method="post">
                     <div class="col-sm-6">
-                        <a href="intake.php" style="display:block;">
+
                             <div class="card">
-                                <div class="card-body">
+
+                                <button type="submit" name="Marriage" class="btn btn-primary">
+                                    <input name="Type" type="hidden" value="Marriage"/>
+                                    <div class="card-body">
                                     <i class="fal fa-comments fa-3x" style="color: #F49100"></i>
                                     <h5 class="card-title">Intake gesprek</h5>
                                 </div>
+                                </button>
                             </div>
-                        </a>
+                    </form>
                     </div>
+            </div>
+                <form action="" method="post">
                     <div class="col-sm-6">
-                        <div class="card">
-                            <a href="http://www.example.com" style="display:block;">
+                        <div  name="shoot" class="card">
+                            <button type="submit" name="Shoot" class="btn btn-primary">
                                 <div class="card-body">
                                     <i class="fal fa-camera-alt fa-3x" style="color: #F49100"></i>
                                     <h5 class="card-title">Fotoshoot</h5>
                                 </div>
                         </div>
-                        </a>
+                    </button>
                     </div>
+                </form>
+
                 </div>
             </div>
         </div>
     </section>
+
+
 
 
     <!-- Optional JavaScript -->
