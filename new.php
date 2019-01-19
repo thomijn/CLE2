@@ -114,9 +114,9 @@ if(!isset($_SESSION['logged_in'])) {
                     </select>
 
                     <div class="form-group row">
-                        <label  class="col-1 col-form-label">Datum</label>
+                        <label style="font-weight: bold" class="col-1 col-form-label">Datum:</label>
                         <div class="col-7">
-                            <input class="input" data-max-year="2030" name="DateTime" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
+                            <input class="input" data-lock="from" data-max-year="2030" name="DateTime" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
                                    data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle"  type="date" value="" id="example-date-input">
                         </div>
                             <div class="col-4">

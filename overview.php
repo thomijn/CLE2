@@ -5,7 +5,9 @@ session_start();
 require_once "./includes/database.php";
 
 $query =   "SELECT appointment.*
-FROM appointment";
+FROM appointment
+ORDER BY DateTime ASC
+";
 
 
 
@@ -24,6 +26,10 @@ if(!isset($_SESSION['logged_in'])) {
     header('Location: adminlogin.php');
     exit;
 }
+
+$dateToday = date("Y-m-d");
+
+
 
 ?>
 
@@ -59,17 +65,42 @@ if(!isset($_SESSION['logged_in'])) {
           <section id="view">
 
             <div class="header">
-              <h3>Overzicht van alle afspraken</h3>
+              <h3 id="desktop" >Overzicht van alle afspraken</h3>
+                <h3 id="mobile" >Overzicht </h3>
+
                 <a href="new.php"><button type="submit" class="btn btn-primary"><i class="far fa-plus fa-2x"style="color: white"></i></a></button>
 
 
-                    <div class="input-group">
+
+                <?php
+
+                if(empty($appointments)){ ?>
+                    <button data-toggle="modal" data-target=".bs-weather-modal-sm" type="submit" class="btn btn-secondary"><i class="fas fa-clouds fa-2x"style="color: white"></i></button>
+
+                <?php                } else{
+                if($appointments[0]['DateTime'] == $dateToday){ ?>
+                <button data-toggle="modal" data-target=".bs-weather-modal-sm" type="submit" class="btn btn-today"><i class="fas fa-clouds fa-2x"style="color: white"></i></button>
+                <?php
+                } else { ?>
+                <button data-toggle="modal" data-target=".bs-weather-modal-sm" type="submit" class="btn btn-secondary"><i class="fas fa-clouds fa-2x"style="color: white"></i></button>
+                <?php
+                }
+
+                }
+                ?>
+
+
+
+
+
+
+                    <!--<div class="input-group">
                  <span class="input-group-btn">
                 <button class="btn btn-default" type="button">Ga</button>
                  </span>
                         <input type="text" class="form-control" placeholder="Zoeken...">
-                    </div><!-- /input-group -->
-
+                    </div>
+-->
 
                 <div  data-toggle="modal" data-target=".bs-example-modal-sm" class="logout  "> <i  class="fal fa-sign-out-alt fa-1x " style="color: black"></i> Uitloggen   </div>
             </div>
@@ -110,9 +141,10 @@ if(!isset($_SESSION['logged_in'])) {
                       <p>
 
                       </p>
-                          <div class="myAnchor" data-toggle="modal" data-target=".bs-delete-modal-sm" ><i class="far fa-trash-alt"></i>   </div>
+                          <a href="delete.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-trash-alt"></i></a>
+
                           <a href="edit.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-edit"></i></a>
-                  </div> </a>
+                      </div> </a>
               <?php    } ?>
 
 
@@ -127,13 +159,13 @@ if(!isset($_SESSION['logged_in'])) {
                   </div>
               </div>
 
-
-              <div class="modal bs-delete-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal bs-weather-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-sm">
                       <div class="modal-content">
-                          <div class="modal-header"><h4>verwijderen <i class="far fa-trash"></i></h4></div>
-                          <div class="modal-body"> Weet je zeker dat je deze afspraak wilt verwijderen</div>
-                          <div class="modal-footer"><a href="delete.php?id=<?= $appointment['AppointmentId'];?>" class="btn btn-primary ">VERWIJDEREN</a></div>
+                          <div class="modal-header"><h4>Het weer nu in Papendrecht <i class="fas fa-clouds "></i></h4></div>
+                          <div class="modal-body"> <h5 id="temp"> temperatuur:</h5> <h5 id="cloud"> het is % bewoklt</h5> </p> </div>
+
+
                       </div>
                   </div>
               </div>
@@ -150,7 +182,30 @@ if(!isset($_SESSION['logged_in'])) {
 
 
 
+          <script>
 
+              function reqListener () {
+                  var weer = JSON.parse(this.responseText);
+                  var temperatuur = weer.main.temp;
+                  var bewolktheid = weer.clouds.all;
+
+                  var blokje = document.querySelector("#temp");
+                  blokje.innerHTML = 'Temperatuur: ' + temperatuur;
+
+                  var blokje = document.querySelector("#cloud");
+                  blokje.innerHTML = 'Bewolktheid: ' + bewolktheid + '%';
+              }
+
+
+
+              var oReq = new XMLHttpRequest();
+              oReq.addEventListener("load", reqListener);
+              oReq.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=Papendrecht&APPID=f6cf9006e97a2ad5e1a4c92f6d3b449f&units=metric");
+              oReq.send();
+
+
+
+          </script>
 
 
 

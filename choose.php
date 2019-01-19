@@ -68,7 +68,6 @@ if(isset($_POST['Shoot'])){
                 <div class="row" class="d-flex justify-content-center">
                     <form action="" method="post">
                     <div class="col-sm-6">
-
                             <div class="card">
 
                                 <button type="submit" name="Marriage" class="btn btn-primary">
@@ -84,6 +83,7 @@ if(isset($_POST['Shoot'])){
             </div>
                 <form action="" method="post">
                     <div class="col-sm-6">
+                        <input type="hidden" name="id" value="<?= $AppointmentId; ?>"/>
                         <div  name="shoot" class="card">
                             <button type="submit" name="Shoot" class="btn btn-primary">
                                 <div class="card-body">

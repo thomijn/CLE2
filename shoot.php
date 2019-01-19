@@ -11,47 +11,53 @@ if(isset($_POST['submit'])){
     $LastName1 = mysqli_real_escape_string($db, $_POST['LastName1']);
     $Email = mysqli_real_escape_string($db, $_POST['Email']);
     $Mobilenumber = mysqli_real_escape_string($db, $_POST['Mobilenumber']);
-    $NumberOfPeople = mysqli_real_escape_string($db, $_POST['NumberOfPeople']);
     $AppointmentId = $_POST['id'];
+    $Emailv = mysqli_real_escape_string($db, $_POST['Emailv']);
+    $Type = $_POST['Type'];
+
+
+    require_once "./includes/formval.php";
+
+if (empty($errors)) {
+
+    $query = "UPDATE `appointment` SET `Type`='$Type' WHERE AppointmentId = $AppointmentId";
+
+    $result = mysqli_query($db, $query)
+    or die('Error: ' . $query);
 
     $query1 = "INSERT INTO `customer`(`FirstName`, `LastName`) VALUES ('$FirstName','$LastName')";
 
     $result = mysqli_query($db, $query1)
-    or die('Error: '.$query1);
+    or die('Error: ' . $query1);
 
     $customer1 = mysqli_insert_id($db);
 
     $query2 = "INSERT INTO `customer`(`FirstName`, `LastName`) VALUES ('$FirstName1','$LastName1')";
 
     $result2 = mysqli_query($db, $query2)
-    or die('Error: '.$query2);
+    or die('Error: ' . $query2);
 
     $customer2 = mysqli_insert_id($db);
 
     $query3 = "INSERT INTO `contactinfo`( `AppointmentId`, `Mobilenumber`, `Email`) VALUES ('$AppointmentId',$Mobilenumber,'$Email')";
 
     $result3 = mysqli_query($db, $query3)
-    or die('Error: '.$query3);
+    or die('Error: ' . $query3);
 
     $query4 = "INSERT INTO `appointment_customer`(`AppointmentId`, `CustomerId`) VALUES ('$AppointmentId','$customer1')";
 
     $result4 = mysqli_query($db, $query4)
-    or die('Error: '.$query4);
+    or die('Error: ' . $query4);
 
     $query5 = "INSERT INTO `appointment_customer`(`AppointmentId`, `CustomerId`) VALUES ('$AppointmentId','$customer2')";
 
     $result5 = mysqli_query($db, $query5)
-    or die('Error: '.$query5);
-
-    $query6 = "UPDATE `appointment` SET `NumberOfPeople`='$NumberOfPeople' WHERE AppointmentId = $AppointmentId";
-
-    $result6 = mysqli_query($db, $query6)
-    or die('Error: '.$query6);
+    or die('Error: ' . $query5);
 
 
     if ($result5) {
         $url = "datepicker.php?id=$AppointmentId";
-        header("Location: ".$url);
+        header("Location: " . $url);
         exit;
     } else {
         $errors[] = 'Something went wrong in your database query: ' . mysqli_error($db);
@@ -60,6 +66,69 @@ if(isset($_POST['submit'])){
     mysqli_close($db);
 
 }
+}
+
+if(isset($_POST['submit2'])){
+
+    $FirstName = mysqli_real_escape_string($db, $_POST['FirstName']);
+    $LastName = mysqli_real_escape_string($db, $_POST['LastName']);
+    $Email = mysqli_real_escape_string($db, $_POST['Email']);
+    $Mobilenumber = mysqli_real_escape_string($db, $_POST['Mobilenumber']);
+    $NumberOfPeople = mysqli_real_escape_string($db, $_POST['NumberOfPeople']);
+    $AppointmentId = $_POST['id'];
+    $Emailv = mysqli_real_escape_string($db, $_POST['Emailv']);
+    $Type = $_POST['Type'];
+
+
+
+    require_once "./includes/formvalshoot.php";
+
+    if (empty($errors)) {
+        $query = "UPDATE `appointment` SET `Type`='$Type' WHERE AppointmentId = $AppointmentId";
+
+        $result = mysqli_query($db, $query)
+        or die('Error: ' . $query);
+
+        $query1 = "INSERT INTO `customer`(`FirstName`, `LastName`) VALUES ('$FirstName','$LastName')";
+
+        $result = mysqli_query($db, $query1)
+        or die('Error: ' . $query1);
+
+        $customer1 = mysqli_insert_id($db);
+
+
+
+        $query3 = "INSERT INTO `contactinfo`( `AppointmentId`, `Mobilenumber`, `Email`) VALUES ('$AppointmentId',$Mobilenumber,'$Email')";
+
+        $result3 = mysqli_query($db, $query3)
+        or die('Error: ' . $query3);
+
+        $query4 = "INSERT INTO `appointment_customer`(`AppointmentId`, `CustomerId`) VALUES ('$AppointmentId','$customer1')";
+
+        $result4 = mysqli_query($db, $query4)
+        or die('Error: ' . $query4);
+
+
+
+        $query6 = "UPDATE `appointment` SET `NumberOfPeople`='$NumberOfPeople' WHERE AppointmentId = $AppointmentId";
+
+        $result6 = mysqli_query($db, $query6)
+        or die('Error: ' . $query6);
+
+
+        if ($result6) {
+            $url = "datepicker.php?id=$AppointmentId";
+            header("Location: " . $url);
+            exit;
+        } else {
+            $errors[] = 'Something went wrong in your database query: ' . mysqli_error($db);
+        }
+        //Close connection
+        mysqli_close($db);
+
+    }
+}
+
 
 if(isset($_POST['cancel'])){
 
@@ -139,9 +208,12 @@ if(isset($_POST['cancel'])){
                 <div class="form-row">
                     <div class="col">
                         <input type="text" name="FirstName" class="form-control" placeholder="Voornaam">
+                        <span class="error"><?= isset($errors['FirstName']) ? $errors['FirstName'] : '' ?></span>
                     </div>
                     <div class="col">
                         <input type="text" name="LastName" class="form-control" placeholder="Achternaam">
+                        <span class="error"><?= isset($errors['LastName']) ? $errors['LastName'] : '' ?></span>
+
                     </div>
                 </div>
 
@@ -149,9 +221,13 @@ if(isset($_POST['cancel'])){
                 <div class="form-row">
                     <div class="col">
                         <input type="text" name="FirstName1" class="form-control" placeholder="Voornaam">
+                        <span class="error"><?= isset($errors['FirstName1']) ? $errors['FirstName1'] : '' ?></span>
+
                     </div>
                     <div class="col">
                         <input type="text" name="LastName1" class="form-control" placeholder="Achternaam">
+                        <span class="error"><?= isset($errors['LastName1']) ? $errors['LastName1'] : '' ?></span>
+
                     </div>
                 </div>
 
@@ -159,20 +235,27 @@ if(isset($_POST['cancel'])){
                 <div class="form-group">
 
                     <input type="text" name="Mobilenumber" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
+                    <span class="error"><?= isset($errors['Mobilenumber']) ? $errors['Mobilenumber'] : '' ?></span>
+
                 </div>
 
                 <div class="form-group">
 
-                    <input type="text" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
+                    <input type="email" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
+                    <span class="error"><?= isset($errors['Email']) ? $errors['Email'] : '' ?></span>
+
                 </div>
 
                 <div class="form-group">
 
-                    <input type="text"  class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
+                    <input type="email" name="Emailv" class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
+                    <span class="error"><?= isset($errors['Emailv']) ? $errors['Emailv'] : '' ?></span>
+
                 </div>
 
-                <input type="hidden" name="NumberOfPeople" value="2"/>
+
                 <input type="hidden" name="id" value="<?= $AppointmentId; ?>"/>
+                <input type="hidden" name="Type" value="Loveshoot"/>
 
                 <button type="submit" name="submit" class="btn btn-primary">VOLGENDE</button>
                 <button type="submit" name="cancel" class="btn btn-secondary">ANNULEREN</button>
@@ -180,14 +263,18 @@ if(isset($_POST['cancel'])){
             </form>
 
             <form action="" method="post" class="className" name="form_2" id="form_2" style="display:none"  >
-                <h5> Vul je moeder in. </h5>
+                <h5> Vul onderstaande gegevens in. </h5>
                 <h6> Persoon 1</h6>
                 <div class="form-row">
                     <div class="col">
                         <input type="text" name="FirstName" class="form-control" placeholder="Voornaam">
+                        <span class="error"><?= isset($errors['FirstName']) ? $errors['FirstName'] : '' ?></span>
+
                     </div>
                     <div class="col">
                         <input type="text" name="LastName" class="form-control" placeholder="Achternaam">
+                        <span class="error"><?= isset($errors['LastName']) ? $errors['LastName'] : '' ?></span>
+
                     </div>
                 </div>
 
@@ -195,27 +282,36 @@ if(isset($_POST['cancel'])){
                 <div class="form-group">
 
                     <input type="text" name="Mobilenumber" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
+                    <span class="error"><?= isset($errors['Mobilenumber']) ? $errors['Mobilenumber'] : '' ?></span>
+
                 </div>
 
                 <div class="form-group">
 
-                    <input type="text" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
+                    <input type="email" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
+                    <span class="error"><?= isset($errors['Email']) ? $errors['Email'] : '' ?></span>
+
                 </div>
 
                 <div class="form-group">
 
-                    <input type="text"  class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
+                    <input type="email" name="Emailv" class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
+                    <span class="error"><?= isset($errors['Emailv']) ? $errors['Emailv'] : '' ?></span>
+
                 </div>
 
                 <div class="form-group">
 
-                    <input type="text" name="NumberOfPeople" class="form-control" id="formGroupExampleInput" placeholder="Aantal personen">
+                    <input type="number" name="NumberOfPeople" class="form-control" id="formGroupExampleInput" placeholder="Aantal personen">
+                    <span class="error"><?= isset($errors['NumberOfPeople']) ? $errors['NumberOfPeople'] : '' ?></span>
+
                 </div>
 
+                <input type="hidden" name="Type" value="Familyshoot"/>
 
                 <input type="hidden" name="id" value="<?= $AppointmentId; ?>"/>
 
-                <button type="submit" name="submit" class="btn btn-primary">VOLGENDE</button>
+                <button type="submit" name="submit2" class="btn btn-primary">VOLGENDE</button>
                 <button type="submit" name="cancel" class="btn btn-secondary">ANNULEREN</button>
 
             </form>

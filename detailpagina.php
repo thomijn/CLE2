@@ -85,20 +85,37 @@ if(!isset($_SESSION['logged_in'])) {
                     echo 'familyshoot';
                 }; ?></h2>
         </div>
+    <?php
+        if ($appointment[0]['Type'] == 'Familyshoot'){
+        ?> <div class="appointmentdetail">
+                <label for="">Datum:</label> <?= date(" d-m-Y ", strtotime($appointment[0]['DateTime'])) ?> <br>
+                <label for="">Aantal personen:</label> <?= $appointment[0]['NumberOfPeople']; ?> <br>
 
-        <div class="appointmentdetail">
-            <label for="">Datum:</label> <?= date(" d-m-Y ", strtotime($appointment[0]['DateTime'])) ?> <br>
-            <label for="">Aantal personen:</label> <?= $appointment[0]['NumberOfPeople']; ?> <br>
+                <h5>contactgegevens:</h5>
+                <label for="">Contactpersoon</label> <?= $appointment[0]['FirstName']; ?> <?= $appointment[0]['LastName']; ?>  <br>
 
-            <h5>contactgegevens:</h5>
-            <label for="">Parter 1</label> <?= $appointment[0]['FirstName']; ?> <?= $appointment[0]['LastName']; ?>  <br>
-            <label for="">Partner 2</label> <?= $appointment[1]['FirstName']; ?> <?= $appointment[1]['LastName']; ?>  <br>
-            <label for="">Mobiele nummer:</label> <?= $appointment[0]['Mobilenumber']; ?> <br>
-            <label for="">Email:</label> <?= $appointment[0]['Email']; ?>
+                <label for="">Mobiele nummer:</label> <?= $appointment[0]['Mobilenumber']; ?> <br>
+                <label for="">Email:</label> <?= $appointment[0]['Email']; ?>
 
+            </div>
 
+            <?php }
+         else {
+            ?> <div class="appointmentdetail">
+                 <label for="">Datum:</label> <?= date(" d-m-Y ", strtotime($appointment[0]['DateTime'])) ?> <br>
+                 <label for="">Aantal personen:</label> <?= $appointment[0]['NumberOfPeople']; ?> <br>
 
-        </div>
+                 <h5>contactgegevens:</h5>
+                 <label for="">Parter 1</label> <?= $appointment[0]['FirstName']; ?> <?= $appointment[0]['LastName']; ?>  <br>
+                 <label for="">Partner 2</label> <?= $appointment[1]['FirstName']; ?> <?= $appointment[1]['LastName']; ?>  <br>
+                 <label for="">Mobiele nummer:</label> <?= $appointment[0]['Mobilenumber']; ?> <br>
+                 <label for="">Email:</label> <?= $appointment[0]['Email']; ?>
+
+             </div>
+          <?php  }
+
+        ?>
+
 
 
     </section>

@@ -151,15 +151,15 @@ if(isset($_POST['cancel'])){
             <h3>Detailpagina</php></h3>
         </div>
 
-        <div class='appointmentheader';>
 
-            <h2>Nieuwe afspraak aanmaken</h2>
-
-        </div>
 
         <div class="newappointment">
 
+            <div class='appointmentheader';>
 
+                <h2>Nieuwe afspraak aanmaken</h2>
+
+            </div>
             <?php
             if ($appointment[0]['Type'] == 'Marriage'){
                 ?> <form class="className" name="form_1" id="form_1" method="post" action="">
@@ -188,12 +188,12 @@ if(isset($_POST['cancel'])){
                     <h6> Contactgegevens</h6>
                     <div class="form-group">
 
-                        <input type="text" name="Mobilenumber" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
+                        <input type="number" name="Mobilenumber" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
                     </div>
 
                     <div class="form-group">
 
-                        <input type="text" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
+                        <input type="email" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
                     </div>
 
 
@@ -201,7 +201,7 @@ if(isset($_POST['cancel'])){
                     <div class="form-group row">
                         <label for="example-text-input" class="col-2 col-form-label">Trouwdatum</label>
                         <div class="col-10">
-                            <input  class="input" data-max-year="2030" name="Trouwdatum" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
+                            <input  class="input" data-lock="from" data-max-year="2030" name="Trouwdatum" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
                                     data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle" class="form-control" type="date" value="" id="example-date-input">
                         </div>
                     </div>

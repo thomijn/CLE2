@@ -1,5 +1,11 @@
 <?php
 
+if(isset($_SESSION['logged_in'])) {
+    // already logged in
+    header('Location: overview.php');
+    exit;
+}
+
 require_once "./includes/database.php";
 session_start();
 
@@ -8,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         require 'login.php';
     }
 }
+
 
 
 ?>

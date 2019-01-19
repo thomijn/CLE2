@@ -20,12 +20,8 @@ While( $row = mysqli_fetch_assoc($result) ) {
     $appointment[] = $row;
 }
 
+
 if (isset($_POST['submit'])) {
-
-
-
-
-
     $query = "UPDATE `appointment` SET `DateTime`='$DateTime' WHERE AppointmentId = $AppointmentId";
 
     $result = mysqli_query($db, $query)
@@ -42,6 +38,95 @@ if (isset($_POST['submit'])) {
     mysqli_close($db);
 
 }
+
+if (isset($_POST['cancel'])){
+
+    $query3 = "SELECT * FROM `appointment_customer` WHERE AppointmentId = $AppointmentId";
+    $query4 = "SELECT * FROM `appointment` WHERE AppointmentId = $AppointmentId";
+
+
+    $result4 = mysqli_query($db, $query4)
+    or die('Error' .mysqli_error($db).'<br>query:'. $query4);
+
+    $result3 = mysqli_query($db, $query3)
+    or die('Error' .mysqli_error($db).'<br>query:'. $query3);
+
+
+    $customers = [];
+    While( $row = mysqli_fetch_assoc($result3) ) {
+        $customers[] = $row;
+    }
+
+    $appointments = [];
+    While( $row = mysqli_fetch_assoc($result4) ) {
+        $appointments[] = $row;
+    }
+
+
+
+    if ($appointments[0]['Type'] == 'Familyshoot') {
+
+        $AppointmentId = $_GET['id'];
+
+        $customerid = $customers[0]['CustomerId'];
+
+// sql to delete a record
+        $query4 = "DELETE FROM customer WHERE CustomerId=$customerid";
+
+
+
+        $query1 = "DELETE FROM appointment WHERE AppointmentId=$AppointmentId";
+
+
+
+        $result4 = mysqli_query($db, $query4);
+
+
+
+        $result1 = mysqli_query($db, $query1);
+
+        if ($result4) {
+            header('Location: choose.php');
+            exit;
+        } else {
+            echo "Error deleting record: " . mysqli_error($db);
+            exit;
+        }
+
+        mysqli_close($db);
+    }
+
+    else {
+        $customerid = $customers[0]['CustomerId'];
+        $customerid1 = $customers[1]['CustomerId'];
+
+// sql to delete a record
+        $query4 = "DELETE FROM customer WHERE CustomerId=$customerid";
+
+        $query5 = "DELETE FROM customer WHERE CustomerId=$customerid1";
+
+        $query1 = "DELETE FROM appointment WHERE AppointmentId=$AppointmentId";
+
+
+
+        $result4 = mysqli_query($db, $query4);
+
+        $result5 = mysqli_query($db, $query5);
+
+        $result1 = mysqli_query($db, $query1);
+
+        if ($result5) {
+            header('Location: choose.php');
+            exit;
+        } else {
+            echo "Error deleting record: " . mysqli_error($db);
+            exit;
+        }
+
+        mysqli_close($db);
+    }
+}
+
 
 if(!isset($_GET['id'])) {
 
@@ -94,28 +179,53 @@ if(!isset($_GET['id'])) {
         <section id="form">
             <h3> Bevestig uw reservering </h3>
 
-            <div class="confirmdetail">
+            <?php
+             if ($appointment[0]['Type'] == 'Familyshoot'){
+                   ?> <div class="confirmdetail">
 
-                <label for="">Datum:</label> <?= date(" d-m-Y ", strtotime($appointment[0]['DateTime'])) ?> <br>
-                <label for="">Aantal personen:</label> <?= $appointment[0]['NumberOfPeople']; ?> <br>
+                     <label for="">Datum:</label> <?= date(" d-m-Y ", strtotime($appointment[0]['DateTime'])) ?> <br>
+                     <label for="">Aantal personen:</label> <?= $appointment[0]['NumberOfPeople']; ?> <br>
 
-                <h5>contactgegevens:</h5>
-                <label for="">Parter 1</label> <?= $appointment[0]['FirstName']; ?> <?= $appointment[0]['LastName']; ?>  <br>
-                <label for="">Partner 2</label> <?= $appointment[1]['FirstName']; ?> <?= $appointment[1]['LastName']; ?>  <br>
-                <label for="">Mobiele nummer:</label> <?= $appointment[0]['Mobilenumber']; ?> <br>
-                <label for="">Email:</label> <?= $appointment[0]['Email']; ?>
+                     <h5>contactgegevens:</h5>
+                     <label for="">Contactpersoon</label> <?= $appointment[0]['FirstName']; ?> <?= $appointment[0]['LastName']; ?>  <br>
+
+                     <label for="">Mobiele nummer:</label> <?= $appointment[0]['Mobilenumber']; ?> <br>
+                     <label for="">Email:</label> <?= $appointment[0]['Email']; ?>
+
+                     <form action="" method="post">
+                         <input type="hidden" name="id" value="<?= $DateTime; ?>"/>
+                         <input type="hidden" name="id" value="<?= $AppointmentId; ?>"/>
+                         <button type="submit" name="submit" class="btn btn-primary">OPSLAAN</button>
+                         <button type="submit" name="cancel" class="btn btn-secondary">ANNULEREN</button>
+
+                     </form>
+                 </div> <?php
+
+             }
+             else                                      {
+                   ?> <div class="confirmdetail">
+
+                     <label for="">Datum:</label> <?= date(" d-m-Y ", strtotime($appointment[0]['DateTime'])) ?> <br>
+                     <label for="">Aantal personen:</label> <?= $appointment[0]['NumberOfPeople']; ?> <br>
+
+                     <h5>contactgegevens:</h5>
+                     <label for="">Parter 1</label> <?= $appointment[0]['FirstName']; ?> <?= $appointment[0]['LastName']; ?>  <br>
+                     <label for="">Partner 2</label> <?= $appointment[1]['FirstName']; ?> <?= $appointment[1]['LastName']; ?>  <br>
+                     <label for="">Mobiele nummer:</label> <?= $appointment[0]['Mobilenumber']; ?> <br>
+                     <label for="">Email:</label> <?= $appointment[0]['Email']; ?>
+
+                     <form action="" method="post">
+                         <input type="hidden" name="id" value="<?= $DateTime; ?>"/>
+                         <input type="hidden" name="id" value="<?= $AppointmentId; ?>"/>
+                         <button type="submit" name="submit" class="btn btn-primary">OPSLAAN</button>
+                         <button type="cancel" name="cancel" class="btn btn-secondary">ANNULEREN</button>
+                     </form>
+                 </div> <?php
+
+             }
+                      ?>
 
 
-
-
-
-
-            <form action="" method="post">
-                <input type="hidden" name="id" value="<?= $DateTime; ?>"/>
-                <input type="hidden" name="id" value="<?= $AppointmentId; ?>"/>
-                <button type="submit" name="submit" class="btn btn-primary">OPSLAAN</button>
-
-            </form>
 
         </section>
     </section>

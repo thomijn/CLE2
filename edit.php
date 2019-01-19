@@ -241,7 +241,7 @@ exit;*/
             <div class="form-group row">
                 <label for="example-text-input" class="col-2 col-form-label">datum</label>
                 <div class="col-10">
-                    <input class="input" data-max-year="2030" name="Datum" data-format="Y-m-d" data-disabled-days="" data-lang="nl"
+                    <input class="input" data-lock="from" data-max-year="2030" name="Datum" data-format="Y-m-d" data-disabled-days="" data-lang="nl"
                            data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle" data-default-date="<?= $newDate2 ?>" type="date" value="" id="example-date-input">
                 </div>
             </div>

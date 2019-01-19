@@ -1,10 +1,19 @@
 <?php
 // login procces, checks is user exists and password is correct
 
+if(isset($_SESSION['logged_in'])) {
+    // already logged in
+    header('Location: overview.php');
+    exit;
+}
+
 require_once "./includes/database.php";
 
 //Escape email to protect against SQL injections
 $email = mysqli_escape_string($db, $_POST['email']);
+$password = $_POST['password'];
+
+$hashedpwdindb = password_hash("phdrie05", PASSWORD_DEFAULT);
 
 $query = "SELECT * FROM admin WHERE email='$email'";
 
@@ -22,10 +31,9 @@ if ( mysqli_num_rows($result) == 0) { //user doesn't exist!
 else { //user exists
     $user = mysqli_fetch_assoc($result);
 
-    if ( $_POST['password'] == $user['Password'] ) {
+    if ( password_verify($password, $hashedpwdindb) ) {
 
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['password'] = $user['password'];
+
 
         //This is how we know if the user is logged in
         $_SESSION['logged_in'] = true;

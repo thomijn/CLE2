@@ -1,5 +1,7 @@
 <?php
 
+//Require the form validation handling
+
 require_once "./includes/database.php";
 $AppointmentId = $_GET['id'];
 if(isset($_POST['submit'])){
@@ -15,11 +17,15 @@ if(isset($_POST['submit'])){
     $LastName = mysqli_real_escape_string($db, $_POST['LastName']);
     $FirstName1 = mysqli_real_escape_string($db, $_POST['FirstName1']);
     $LastName1 = mysqli_real_escape_string($db, $_POST['LastName1']);
+    $Emailv = mysqli_real_escape_string($db, $_POST['Emailv']);
     $Email = mysqli_real_escape_string($db, $_POST['Email']);
     $Mobilenumber = mysqli_real_escape_string($db, $_POST['Mobilenumber']);
     $Trouwdatum = mysqli_real_escape_string($db, $newDate);
     $AppointmentId = $_POST['id'];
 
+    require_once "./includes/formval.php";
+
+if (empty($errors)) {
     $query1 = "INSERT INTO `customer`(`FirstName`, `LastName`) VALUES ('$FirstName','$LastName')";
 
     $result = mysqli_query($db, $query1)
@@ -59,6 +65,7 @@ if(isset($_POST['submit'])){
     //Close connection
     mysqli_close($db);
 
+}
 }
 
 if(isset($_POST['cancel'])){
@@ -127,9 +134,11 @@ if(isset($_POST['cancel'])){
           <div class="form-row">
             <div class="col">
               <input type="text" name="FirstName" class="form-control" placeholder="Voornaam">
+                <span class="error"><?= isset($errors['FirstName']) ? $errors['FirstName'] : '' ?></span>
             </div>
             <div class="col">
               <input type="text" name="LastName" class="form-control" placeholder="Achternaam">
+                <span class="error"><?= isset($errors['LastName']) ? $errors['LastName'] : '' ?></span>
             </div>
           </div>
 
@@ -137,9 +146,11 @@ if(isset($_POST['cancel'])){
           <div class="form-row">
             <div class="col">
               <input type="text" name="FirstName1" class="form-control" placeholder="Voornaam">
+                <span class="error"><?= isset($errors['FirstName1']) ? $errors['FirstName1'] : '' ?></span>
             </div>
             <div class="col">
               <input type="text" name="LastName1" class="form-control" placeholder="Achternaam">
+                <span class="error"><?= isset($errors['LastName1']) ? $errors['LastName1'] : '' ?></span>
             </div>
           </div>
 
@@ -147,22 +158,25 @@ if(isset($_POST['cancel'])){
           <div class="form-group">
 
             <input type="text" name="Mobilenumber" class="form-control" id="formGroupExampleInput" placeholder="Mobiele nummer">
+              <span class="error"><?= isset($errors['Mobilenumber']) ? $errors['Mobilenumber'] : '' ?></span>
           </div>
 
           <div class="form-group">
 
-            <input type="text" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
+            <input type="email" name="Email" class="form-control" id="formGroupExampleInput" placeholder="E-mailadres">
+              <span class="error"><?= isset($errors['Email']) ? $errors['Email'] : '' ?></span>
           </div>
 
           <div class="form-group">
 
-            <input type="text"  class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
+            <input type="email" name="Emailv" class="form-control" id="formGroupExampleInput" placeholder="Herhaal E-mailadres">
+              <span class="error"><?= isset($errors['Emailv']) ? $errors['Emailv'] : '' ?></span>
           </div>
 
             <div class="form-group row">
                 <label for="example-text-input" class="col-2 col-form-label">Trouwdatum</label>
                 <div class="col-10">
-                    <input  class="input" data-max-year="2030" name="Trouwdatum" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
+                    <input  class="input" data-lock="from" data-max-year="2030" name="Trouwdatum" data-format="d-m-Y" data-disabled-days="" data-lang="nl"
                             data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle" class="form-control" type="date" value="" id="example-date-input">
                 </div>
             </div>

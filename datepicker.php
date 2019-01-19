@@ -83,9 +83,9 @@ if(isset($_POST['cancel'])){
 
 
                 <form action="" method="post">
-                    <h5> Kies een datum. </h5>
+                    <h5> Kies een datum voor het intake gesprek </h5>
                     <div class="form-group">
-                        <input type="text" name="DateTime" data-max-year="2030" data-format="d-m-Y" data-disabled-days="12/11/2018" data-lang="nl"
+                        <input type="text" name="DateTime" data-lock="from" data-max-year="2030" data-format="d-m-Y" data-disabled-days="12/11/2018" data-lang="nl"
                             data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle"
                             class="input" id="formGroupExampleInput">
                     </div>

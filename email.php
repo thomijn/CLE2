@@ -6,8 +6,16 @@ $AppointmentId = $_GET['id'];
 
 $query =   "SELECT Email FROM contactinfo WHERE AppointmentId = $AppointmentId";
 
+$query2 =  "SELECT DateTime FROM appointment WHERE AppointmentId = $AppointmentId";
+
 $result = mysqli_query($db, $query)
 or die('Error' .mysqli_error($db).'<br>query:'. $query);
+
+$result2 = mysqli_query($db, $query2)
+or die('Error' .mysqli_error($db).'<br>query:'. $query2);
+
+
+$DateTime= mysqli_fetch_assoc($result2);
 
 $email = mysqli_fetch_assoc($result);
 
@@ -15,6 +23,48 @@ if(!isset($_GET['id'])) {
 
     header('Location: choose.php');
 
+}
+
+//php mailer
+
+
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
+$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+try {
+    //Server settings
+                                     // Enable verbose debug output
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'gertenbachthomas@gmail.com';      // SMTP username
+    $mail->Password = '3355bn56';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;                                    // TCP port to connect to
+
+    //Recipients
+    $mail->setFrom('gertenbachthomas@gmail.com', 'Fotografie gertenbach');
+    $mail->addAddress($email['Email']);     // Add a recipient
+
+    //Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = 'Afspraak Fotografie Gertenbach ';
+    $mail->Body    = "<h1>Uw afspraak is doorgegeven aan Fotografie gertenbach</h1>";
+
+    
+
+    $mail->AltBody = 'Dit is een test';
+
+    $mail->send();
+
+} catch (Exception $e) {
+    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 }
 
 ?>
