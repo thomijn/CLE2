@@ -138,9 +138,7 @@ $dateToday = date("Y-m-d");
                       <h5><?php
                           echo date(" d-m-Y ", strtotime($appointment['DateTime']));
                           ?></h5>
-                      <p>
 
-                      </p>
                           <a href="delete.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-trash-alt"></i></a>
 
                           <a href="edit.php?id=<?= $appointment['AppointmentId'];?>"><i class="far fa-edit"></i></a>

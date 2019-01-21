@@ -120,7 +120,7 @@ if(!isset($_SESSION['logged_in'])) {
                                    data-large-mode="true" data-modal="true" data-large-default="true" data-theme="datedropperstyle"  type="date" value="" id="example-date-input">
                         </div>
                             <div class="col-4">
-                                <input type="NumberOfPeople"  name="NumberOfPeople" class="form-control" placeholder="Aantal personen (standaard 2)">
+                                <input type="number"  name="NumberOfPeople" class="form-control" placeholder="Aantal personen (standaard 2)">
                             </div>
 
                     </div>

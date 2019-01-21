@@ -676,12 +676,76 @@ color: white;
         margin-top: 7px;
     }
 
+    #view {
+        float: right;
+        width: 100%;
+    }
+
+    #view .appointment .fa-comments {
+        margin: 23px;
+        float: left;
+    }
+
+    #view .appointment .fa-camera-alt {
+        margin: 23px;
+        float: left;
+    }
+
+    #view .appointment .fa-calendar-alt {
+        margin: 23px;
+        float: left;
+    }
+
+    #view .appointment h5 {
+        padding: 35px;
+
+    }
+
+    .newappointment  .col-form-label{
+        margin-right: 40px;
+    }
+
+    .newappointment .col-4{
+        margin-top: 15px;
+        max-width: 100%;
+        flex: none;
+    }
+
+    #view .appointment .fa-trash-alt {
+        float: right;
+        transition: .2s;
+        margin-top: 35px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #view .appointment .fa-trash-alt:hover {
+        color: #F49100;
+    }
+
+    #view .appointment .fa-edit:hover {
+        color: #F49100;
+    }
+
+    #view .appointment .fa-edit {
+        float: right;
+        margin-top: 35px;
+        transition: .2s;
+    }
+
+    #view .appointment p {
+        float: left;
+        margin: 35px;
+
+    }
+
+
     #view .btn-primary {
         padding-left: 10px;
         padding-right: 10px;
     }
 
-    #view .btn-today {
+    #view .btn-secondary {
         padding-left: 10px;
         padding-right: 10px;
     }
