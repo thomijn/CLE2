@@ -10,15 +10,18 @@ if (isset($_POST['submit'])) {
 
     $AppointmentId = $_GET['id'];
 
-    //Require database in this file & image helpers
+    //include database
     require_once "./includes/database.php";
 
+    // get id
     $AppointmentId = $_GET['id'];
 
+    // convert date to the right format
     $originalDate2 = $_POST['Trouwdatum'];
     $date = new DateTime($originalDate2);
     $newDate = $date->format('Y-m-d');
 
+    // mysqli_real_escape_string for injections
     $FirstName = mysqli_real_escape_string($db, $_POST['FirstName']);
     $LastName = mysqli_real_escape_string($db, $_POST['LastName']);
     $FirstName1 = mysqli_real_escape_string($db, $_POST['FirstName1']);
@@ -87,8 +90,8 @@ if(isset($_GET['id'])) {
 
 }
 
+// check if usr is not deep linking
 if(!isset($_GET['id'])) {
-
     header('Location: new.php');
 
 }
@@ -100,7 +103,7 @@ if(!isset($_SESSION['logged_in'])) {
 }
 
 
-
+//cancel 
 if(isset($_POST['cancel'])){
 
     $query = "DELETE FROM appointment WHERE AppointmentId=$AppointmentId";

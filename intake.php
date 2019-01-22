@@ -2,6 +2,10 @@
 
 //Require the form validation handling
 
+if(!isset($_GET['id'])){
+    header("Location: choose.php");
+}
+
 require_once "./includes/database.php";
 $AppointmentId = $_GET['id'];
 if(isset($_POST['submit'])){

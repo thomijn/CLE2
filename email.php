@@ -1,5 +1,9 @@
 <?php
 
+if(!isset($_GET['id'])){
+    header("Location: choose.php");
+}
+
 require_once "./includes/database.php";
 
 $AppointmentId = $_GET['id'];

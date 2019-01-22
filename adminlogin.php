@@ -1,7 +1,7 @@
 <?php
-
+  // check if user is already logged in
 if(isset($_SESSION['logged_in'])) {
-    // already logged in
+  
     header('Location: overview.php');
     exit;
 }

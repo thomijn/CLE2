@@ -1,5 +1,9 @@
 <?php
 
+if(!isset($_GET['id'])){
+    header("Location: choose.php");
+}
+
 $AppointmentId = $_GET['id'];
 $DateTime= $_GET['DateTime'];
 

@@ -1,7 +1,11 @@
 <?php
 
 session_start();
-
+if(!isset($_SESSION['logged_in'])) {
+    // redirect to login page
+    header('Location: adminlogin.php');
+    exit;
+}
 require_once "./includes/database.php";
 
 $AppointmentId = $_GET['id'];
@@ -21,11 +25,7 @@ While( $row = mysqli_fetch_assoc($result) ) {
     $appointment[] = $row;
 }
 
-if(!isset($_SESSION['logged_in'])) {
-    // redirect to login page
-    header('Location: adminlogin.php');
-    exit;
-}
+
 
 ?>
 
